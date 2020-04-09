@@ -6,7 +6,7 @@ class Add extends Component {
         super(props);
         this.state = {
             title:'',
-            amount: 0
+            amount: ''
 
         }
     }
@@ -31,15 +31,20 @@ class Add extends Component {
             amount: this.state.amount
         }
 
-        let items = JSON.parse(localStorage.getItem("items"))
+        let items = JSON.parse(localStorage.getItem('items'))
         if(!items){
             items = []
         }
         items.push(newRow)
 
 
-        localStorage.setItem('items', JSON.stringify(items ))
-        console.log(items)
+        localStorage.setItem('items', JSON.stringify(items))
+        //console.log(items)
+
+        this.setState({
+            title: '',
+            amount: ''
+        })
     }
 
 
@@ -47,23 +52,23 @@ class Add extends Component {
         return (
             <div>
                 <Form>
-                    <FormGroup as={Row} controlId="formHorizontalTitle" value={this.state.title}
-                               onChange={this.clickHandlerTi}>
+                    <FormGroup as={Row} controlId="formHorizontalTitle"
+                               >
                         <FormLabel column sm={2}>
                             Title
                         </FormLabel>
                         <Col sm={10}>
-                            <FormControl type="title" placeholder="Title"/>
+                            <FormControl type="title" placeholder="Title" onChange={this.clickHandlerTi} value={this.state.title}/>
                         </Col>
                     </FormGroup>
 
-                    <FormGroup as={Row} controlId="formHorizontalAmount" value={this.state.amount}
-                               onChange={this.clickHandlerAm}>
+                    <FormGroup as={Row} controlId="formHorizontalAmount" >
                         <FormLabel column sm={2}>
                             Amount
                         </FormLabel>
                         <Col sm={10}>
-                            <FormControl type="amount" placeholder="Amount"/>
+                            <FormControl type="amount" placeholder="Amount" value={this.state.amount}
+                                         onChange={this.clickHandlerAm}/>
                         </Col>
                     </FormGroup>
                     <Button type="button" variant="success" onClick={this.add}>Add</Button>
